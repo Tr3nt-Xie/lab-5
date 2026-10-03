@@ -1,0 +1,11 @@
+# Reference for the lab's Ubuntu amd64 server, not a replacement for package defaults.
+# Merge these settings into /etc/thingsboard/conf/thingsboard.conf on a fresh server.
+# Set the actual password privately on that server; never commit the deployed file.
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export JAVA_OPTS="${JAVA_OPTS:-} -Xms512M -Xmx2G"
+export DATABASE_TS_TYPE=sql
+export SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/thingsboard
+export SPRING_DATASOURCE_USERNAME=postgres
+export SPRING_DATASOURCE_PASSWORD=REPLACE_ON_SERVER_ONLY
+export SQL_POSTGRES_TS_KV_PARTITIONING=MONTHS
+export TB_QUEUE_TYPE=in-memory

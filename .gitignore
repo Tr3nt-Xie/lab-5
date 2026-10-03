@@ -59,3 +59,7 @@ dkms.conf
 *.key
 *.env
 tokens*
+
+# Python regression-test cache
+__pycache__/
+*.py[cod]

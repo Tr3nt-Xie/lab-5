@@ -76,10 +76,18 @@ the dropdown fixed it.
 
 ## Testing without a phone
 
+Use a dedicated test device whose name does not start with `phone-`. This writes
+synthetic telemetry and must not replace a real phone's latest position. The
+script requires Bash, curl and Python 3. See the
+[safe token-entry example](../server/README.md#synthetic-upload-check).
+
 ```bash
-TB_HOST=https://16-148-94-81.sslip.io TB_TOKEN=<device token> \
+TB_HOST=https://16-148-94-81.sslip.io \
   bash ../tools/send-test-location.sh 34.1700 -118.1423
 ```
 
-posts one location in the same shape as OwnTracks and should move that
-device's marker.
+Run this example from `part3-5/`, after exporting `TB_TOKEN` privately as shown
+in the linked instructions.
+It posts one location with `testData: true`; verify its `lat`/`lon` on the test
+device's Latest telemetry tab. HTTP errors, redirects, timeouts and invalid
+coordinates return nonzero instead of silently succeeding.
