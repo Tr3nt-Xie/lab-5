@@ -1,0 +1,5 @@
+# /etc/caddy/Caddyfile on the ThingsBoard instance.
+# Replace the hostname with your instance's public IP written with dashes.
+16-148-94-81.sslip.io {
+	reverse_proxy localhost:8080
+}

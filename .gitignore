@@ -53,3 +53,9 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# Credentials
+*.pem
+*.key
+*.env
+tokens*
