@@ -112,7 +112,7 @@ self.onInit = function() {
       return {point:point,html:card};});
     q('.me-members').innerHTML=s.views.map(function(v){return v.html;}).join('');q('.me-count').textContent=c.point?arrived+' / 3 arrived':'No meeting point';q('.me-clear').disabled=!c.point;
     q('.me-notice').textContent=s.demo?'Demo mode: all phone locations are simulated and move straight to the meeting point. Motion is accelerated, not a travel-time estimate. Nothing is written to ThingsBoard.':valid===0?'Waiting for live locations: none of the three phones has usable coordinates. Set a meeting point or select “Demo mode” to preview.':'Live data: '+fresh+' / 3 locations updated within 2 minutes. '+(valid>fresh?'Stale locations are shown for reference and excluded from the arrival count.':'');
-    q('.me-last').textContent=s.demo?(c.point?(now-s.demoStart>=60000?'Demo complete · Everyone has arrived · Select “Restart demo” to replay':'Demo updates every second · Everyone arrives in about 60 seconds · Select “Restart demo” to replay'):'Demo paused · Set a meeting point to resume'):s.lastCheck?'Last checked: '+new Date(s.lastCheck).toLocaleTimeString('en-US')+' · Checked every 5 seconds':'Reading platform data…';
+    q('.me-last').textContent=s.demo?(c.point?(now-s.demoStart>=60000?'Demo complete · Everyone has arrived · Select “Restart demo” to replay':'Demo updates every second · Everyone arrives in about 60 seconds · Select “Restart demo” to replay'):'Demo paused · Set a meeting point to resume'):s.lastCheck?'Last checked: '+new Date(s.lastCheck).toLocaleTimeString('en-US')+' · Checked every second':'Reading platform data…';
   }
   function fit(){var points=s.views.filter(function(v){return v.point;}).map(function(v){return v.point;});if(cfg().point)points.push(cfg().point);if(points.length)map.fitBounds(L.latLngBounds(points),{padding:[45,45],maxZoom:17});else message('No locations yet. Set a meeting point or enable demo mode.');}
   function stopPicking(){s.picking=false;q('.me-pick').textContent='Pick on map';q('.me-pick').setAttribute('aria-pressed','false');q('.me-map').style.cursor='';}
@@ -182,7 +182,7 @@ self.onInit = function() {
   q('.me-search-close').onclick=function(){hideSearch();searchFeedback('Search results closed. The meeting point is unchanged.');};
   function focusMember(e){var card=e.target.closest('.me-card');if(card){var v=s.views[Number(card.getAttribute('data-member'))];if(v&&v.point)map.setView(v.point,17);}}
   q('.me-members').onclick=focusMember;q('.me-members').onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();focusMember(e);}};
-  fields();draw();poll();s.pollTimer=setInterval(poll,5000);s.drawTimer=setInterval(draw,1000);s.resizeTimer=setTimeout(function(){if(!s.dead)map.invalidateSize();},200);
+  fields();draw();poll();s.pollTimer=setInterval(poll,1000);s.drawTimer=setInterval(draw,1000);s.resizeTimer=setTimeout(function(){if(!s.dead)map.invalidateSize();},200);
   s.destroy=function(){s.dead=true;searchVersion++;if(searchController)searchController.abort();clearTimeout(searchTimer);clearTimeout(searchAutoTimer);clearInterval(s.pollTimer);clearInterval(s.drawTimer);clearTimeout(s.resizeTimer);s.pending.slice().forEach(function(p){p.cancel();});map.remove();};
 };
 self.onResize=function(){if(self._meetup&&self._meetup.map&&!self._meetup.dead)self._meetup.map.invalidateSize();};
